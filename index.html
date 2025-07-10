@@ -8,11 +8,11 @@
     body {
       margin: 0;
       padding: 0;
+      font-family: 'Comic Sans MS', cursive;
       background: linear-gradient(135deg, #ffd6e8, #d1e0ff, #f3ffd6, #ffe6cc);
       background-size: 400% 400%;
       animation: gradientMove 15s ease infinite;
-      font-family: 'Comic Sans MS', cursive;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     @keyframes gradientMove {
@@ -23,17 +23,23 @@
 
     .container {
       text-align: center;
-      padding-top: 60px;
-      position: relative;
-      z-index: 2;
+      padding: 60px 20px;
+      max-width: 800px;
+      margin: auto;
     }
 
     .birthday-text {
-      font-size: 50px;
+      font-size: 6vw;
       font-weight: bold;
       color: #ff6ec7;
       text-shadow: 0 0 10px #fff, 0 0 20px #ff6ec7;
       animation: glow 2s infinite;
+    }
+
+    @media (min-width: 768px) {
+      .birthday-text {
+        font-size: 48px;
+      }
     }
 
     @keyframes glow {
@@ -42,8 +48,10 @@
     }
 
     .photo-frame {
-      width: 180px;
-      height: 180px;
+      width: 40vw;
+      height: 40vw;
+      max-width: 220px;
+      max-height: 220px;
       border-radius: 50%;
       overflow: hidden;
       border: 6px solid #87e0ff;
@@ -58,8 +66,8 @@
     }
 
     .gift-box {
-      width: 140px;
-      height: 140px;
+      width: 130px;
+      height: 130px;
       background: #ff8fab;
       border-radius: 10px;
       margin: 20px auto;
@@ -86,10 +94,10 @@
     }
 
     .message {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       background: rgba(255, 255, 255, 0.9);
       margin: 20px auto;
-      max-width: 600px;
+      max-width: 90%;
       padding: 20px;
       border-radius: 10px;
       display: none;
@@ -122,15 +130,14 @@
 
     .buttons button {
       margin: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
+      padding: 12px 18px;
+      font-size: 1rem;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       background-color: #ff6ec7;
       color: white;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: background 0.3s ease;
     }
 
     .buttons button:hover {
@@ -165,12 +172,11 @@
 
   <!-- 💌 Share/Download Buttons -->
   <div class="buttons" id="share-buttons" style="display:none;">
-    <button onclick="downloadPage()">⬇️ Download This Page</button>
-    <button onclick="shareWhatsApp()">💌 Share on WhatsApp</button>
+    <button onclick="downloadPage()">⬇️ Download</button>
+    <button onclick="shareWhatsApp()">💌 Share</button>
   </div>
 </div>
 
-<!-- 🎈 JS Scripts -->
 <script>
   const message = `Hey ......! 🎈\nWishing you a birthday filled with magic, smiles, surprises, and unforgettable moments! 🎂✨\nThank you for being such a wonderful friend. 💛\nNow go eat cake and shine like the star you are! 🌟`;
 
@@ -194,7 +200,6 @@
     typeWriter();
   }
 
-  // 🎈 Balloons
   function createBalloon() {
     const balloon = document.createElement("div");
     balloon.className = "balloon";
@@ -207,7 +212,6 @@
 
   setInterval(createBalloon, 400);
 
-  // 🎊 Confetti
   const canvas = document.getElementById("confetti");
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
@@ -256,22 +260,14 @@
 
   animateConfetti();
 
-  // 🎵 Music Auto Start with Fallback
+  // Auto play music
   window.addEventListener("load", () => {
     const music = document.getElementById("bg-music");
-
-    const tryPlay = () => {
-      music.play().catch(() => {
-        document.addEventListener("click", () => {
-          music.play();
-        }, { once: true });
-      });
-    };
-
-    tryPlay();
+    music.play().catch(() => {
+      document.addEventListener("click", () => music.play(), { once: true });
+    });
   });
 
-  // 💾 Download Page
   function downloadPage() {
     const blob = new Blob([document.documentElement.outerHTML], {type: "text/html"});
     const url = URL.createObjectURL(blob);
@@ -281,11 +277,9 @@
     a.click();
   }
 
-  // 💬 WhatsApp Share
   function shareWhatsApp() {
-    const text = "🎉 Check out this special birthday surprise I made for you!\nOpen this page I created just for you! 💖";
-    const url = encodeURIComponent(text);
-    window.open(`https://wa.me/?text=${url}`, "_blank");
+    const text = "🎉 A special birthday surprise for you! 💖";
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
   }
 </script>
 
